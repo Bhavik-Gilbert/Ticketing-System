@@ -7,6 +7,7 @@ from start import start
 from main import main
 from projects import project
 from tickets import tickets
+from account import user
 
 app = Flask(__name__)
 
@@ -18,6 +19,7 @@ app.register_blueprint(main, url_prefix="")
 app.register_blueprint(group, url_prefix="/groups")
 app.register_blueprint(project, url_prefix="/projects")
 app.register_blueprint(tickets, url_prefix="/tickets")
+app.register_blueprint(user, url_prefix="/account")
 
 if __name__ == "__main__":
     app.run(debug=True)

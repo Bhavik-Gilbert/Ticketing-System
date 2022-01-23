@@ -43,69 +43,51 @@
                 style="background-image: url(/static/Images/new_group_icon.png);"></a>
         </div>
     </div>
-    
-    <div style="display: inline-block;">
-        <div class="btn_group">
-            <a href=/groups/members/{{group_id}} class=invisible_text target="_blank">Invite</a>
-            <br>
-            <a href=/groups/invite/{{group_id}} class=btn_image target="_blank"
-                style="background-image: url(/static/Images/invite_group_icon.png);"></a>
-        </div>
+   
+    <div class="btn_group">
+        <a href=/groups/invite/{{group_id}} class=invisible_text target="_blank">Invite</a>
+        <br>
+        <a href=/groups/invite/{{group_id}} class=btn_image target="_blank"
+            style="background-image: url(/static/Images/invite_group_icon.png);"></a>
     </div>
+ 
 
-    <br>
-    
-    <table style="float:left; margin-left: 5%; width: 40%;">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Manager</th>
-                <th colspan="2"></th>
-            </tr>
-        </thead>
-        {% for i in range(in_length) %}
-        <tr>
-            <td>{{projects_in[i][0]}}</td>
-            <td>{{projects_in[i][1]}}</td>
-            <td>{{projects_in[i][2]}}</td>
-            <td>
-                <a href="/tickets/{{group_id}}/{{projects_in[i][5]}}" class="edit_btn">View Project</a>
-            </td>
-            {% if (managers_in[i] == user) %}
-                <td>
-                    <a onclick="javascript:confirmationDeleteProject($(this));return false;" href="/projects/{{group_id}}/delete_project/{{projects_in[i][5]}}" class="del_btn">Delete Project</a>
-                </td>
-            {% else %}
-                <td>
-                    <a onclick="javascript:confirmationLeaveProject($(this));return false;" href="/projects/{{group_id}}/leave_project/{{projects_in[i][5]}}" class="del_btn">Leave Project</a>
-                </td>
-            {% endif %}
-        </tr>
-        {% endfor %}
-    </table>
+    {% if(owner == user) %}
+        <div class="btn_group">
+            <a href=/groups/delete/{{group_id}} class=invisible_text>Delete</a>
+            <br>
+            <a href=/groups/delete/{{group_id}} class=btn_image
+                style="background-image: url(/static/Images/bin_icon.png);"></a>
+        </div>
+    {% else %}
+        <div class="btn_group">
+            <a href=/groups/leave/{{group_id}} class=invisible_text>Leave</a>
+            <br>
+            <a href=/groups/leave/{{group_id}} class=btn_image style="background-image: url(/static/Images/bin_icon.png);"></a>
+        </div>
+    {% endif %}
 
-    <table style="float:right; margin-right: 5%; width: 40%;">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Manager</th>
-                <th colspan="2"></th>
-            </tr>
-        </thead>
-        {% for project in projects_out %}
-        <tr>
-            <td>{{project[0]}}</td>
-            <td>{{project[1]}}</td>
-            <td>{{project[2]}}</td>
-            <td>
-                <a onclick="javascript:confirmationJoinProject($(this));return false;" href="/projects/{{project[0]}}" class="del_btn">Join Project/nf</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+    <br><br>
 
+    <h3>Joined</h3>
+
+    {% for project in projects_in %}
+    <a href="/tickets/{{group_id}}/{{project[5]}}" class="data_box">
+        <h3>{{project[0]}}</h3>
+        <field>Manager : {{project[2]}}</field>
+    </a>
+    {% endfor %}
+
+    <br><br>
+
+    <h3>Available</h3>
+
+    {% for project in projects_out %}
+    <a href="/projects/{{group_id}}/join_project/{{project[5]}}" class="data_box">
+        <h3>{{project[0]}}</h3>
+        <field>Manager : {{project[2]}}</field>
+    </a>
+    {% endfor %}
 
     <br><br><br>
 </body>

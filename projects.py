@@ -30,16 +30,14 @@ def projects(number):
     user = session["id"]
     projects_in = []
     projects_out = []
-    managers_in = []
     for project in select_projects:
         if(project[3] == user):
             projects_in.append(project)
-            managers_in.append(project[4])
         else:
             projects_out.append(project)
 
     return render_template("Projects/projects.html", group_id = select_group[0][0], group_name = select_group[0][1], group_description = select_group[0][2], owner = select_group[0][3],
-                            projects_out = projects_out, projects_in = projects_in, managers_in = managers_in, in_length = len(managers_in), user = session["id"])
+                            projects_out = projects_out, projects_in = projects_in, user = session["id"])
 
 @project.route("/<number>/new_project", methods=["POST", "GET"])
 def new_project(number):
@@ -162,6 +160,26 @@ def leave_project(number,number2):
 
         query(""" DELETE FROM projectlist 
                 WHERE ProjectID = %s AND UserID = %s""", record)
+            
+    return redirect("/projects/" + number)
+
+@project.route("/<number>/join_project/<number2>", methods=["POST", "GET"])
+def join_project(number,number2):
+    if(logged_out()):
+        return redirect(url_for("start.login"))
+    
+    record = (number2,)
+    select_manager = query("""SELECT UserID FROM projectlist
+                            WHERE ProjectID = %s""", record)
+
+    if empty(select_manager):
+        record = (number2,session["id"])
+        query("""INSERT INTO projectlist (ProjectID, UserID)
+                VALUES (%s, %s);""", record)
+
+        flash("Group joined successfully")
+    else:
+        flash("You are already in this group")
             
     return redirect("/projects/" + number)
 

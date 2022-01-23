@@ -24,68 +24,25 @@
 
     <br>
     <h3>Active</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Group</th>
-                <th>Project</th>
-                <th colspan="2"></th>
-            </tr>
-        </thead>
-        {% for ticket in tickets %}
-        <tr>
-            <td>{{ticket[0]}}</td>
-            <td>{{ticket[1]}}</td>'
-            <td>{{ticket[2]}}</td>
-            <td>{{ticket[3]}}</td>'
-            <td>
-                <a href="/tickets/view_tickets/{{ticket[4]}}/{{ticket[5]}}/{{ticket[6]}}" class="edit_btn">Expand Ticket</a>
-            </td>
-            {% if(manager == user_id) %}
-            <td>
-                <a onclick="javascript:confirmationDeleteTicket($(this));return false;" href="/tickets/delete_ticket/{{ticket[4]}}/{{ticket[5]}}/{{ticket[6]}}/" class="del_btn">Delete Ticket</a>
-            </td>
-            {% endif %}
-        </tr>
-        {% endfor %}
-    
-    </table>
+
+    {% for ticket in tickets %}
+    <a href="/tickets/view_tickets/{{ticket[4]}}/{{ticket[5]}}/{{ticket[6]}}" class="data_box">
+        <h3>{{ticket[0]}}</h3>
+        <field>Group : {{ticket[2]}}</field>
+        <field>Project : {{ticket[3]}}</field>
+    </a>
+    {% endfor %}
 
     <br><br>
     <h3>Completed</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Group</th>
-                <th>Project</th>
-                <th colspan="2"></th>
-            </tr>
-        </thead>
-        {% for ticket in completed %}
-        <tr>
-            <td>{{ticket[0]}}</td>
-            <td>{{ticket[1]}}</td>'
-            <td>{{ticket[2]}}</td>
-            <td>{{ticket[3]}}</td>'
-            <td>
-                <a href="/tickets/view_tickets/{{ticket[4]}}/{{ticket[5]}}/{{ticket[6]}}" class="edit_btn">Expand Ticket</a>
-            </td>
-            {% if(manager == user_id) %}
-            <td>
-                <a onclick="javascript:confirmationDeleteTicket($(this));return false;"
-                    href="/tickets/delete_ticket/{{ticket[4]}}/{{ticket[5]}}/{{ticket[6]}}/" class="del_btn">Delete
-                    Ticket</a>
-            </td>
-            {% endif %}
-        </tr>
-        {% endfor %}
-    
-    </table>
 
+    {% for ticket in completed %}
+    <a href="/tickets/view_tickets/{{ticket[4]}}/{{ticket[5]}}/{{ticket[6]}}" class="data_box">
+        <h3>{{ticket[0]}}</h3>
+        <field>Group : {{ticket[2]}}</field>
+        <field>Project : {{ticket[3]}}</field>
+    </a>
+    {% endfor %}
 </body>
 
 <script>

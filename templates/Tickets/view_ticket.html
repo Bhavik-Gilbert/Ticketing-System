@@ -32,7 +32,7 @@
     {% if not(ticket[2]) %}
         {% if(started) %}
             <div class="btn_group">
-                <a onclick="javascript:confirmationCompleteTicket($(this));return false;" href=/tickets/complete/{{group_id}}/{{project_id}}/{{ticket_id}}/ class=invisible_text>Complete Ticket</a>
+                <a onclick="javascript:confirmationCompleteTicket($(this));return false;" href=/tickets/complete/{{group_id}}/{{project_id}}/{{ticket_id}}/ class=invisible_text>Complete</a>
                 <br>
                 <a href=/tickets/complete/{{group_id}}/{{project_id}}/{{ticket_id}}/ class=btn_image
                     onclick="javascript:confirmationCompleteTicket($(this));return false;" style="background-image: url(/static/Images/tick_icon.jpg);"></a>
@@ -40,16 +40,16 @@
 
             <div class="btn_group">
                 <a onclick="javascript:confirmationDropTicket($(this));return false;"
-                    href=/tickets/drop/{{group_id}}/{{project_id}}/{{ticket_id}}/ class=invisible_text>Drop Ticket</a>
+                    href=/tickets/drop/{{group_id}}/{{project_id}}/{{ticket_id}}/ class=invisible_text>Drop</a>
                 <br>
                 <a href=/tickets/drop/{{group_id}}/{{project_id}}/{{ticket_id}}/ class=btn_image
                     onclick="javascript:confirmationDropTicket($(this));return false;"
-                    style="background-image: url(/static/Images/bin_icon.png);"></a>
+                    style="background-image: url(/static/Images/remove_icon.jpg);"></a>
             </div>
         {% else %}
             <div class="btn_group">
                 <a onclick="javascript:confirmationDropTicket($(this));return false;"
-                    href=/tickets/start/{{group_id}}/{{project_id}}/{{ticket_id}}/ class=invisible_text>Start Ticket</a>
+                    href=/tickets/start/{{group_id}}/{{project_id}}/{{ticket_id}}/ class=invisible_text>Start</a>
                 <br>
                 <a href=/tickets/start/{{group_id}}/{{project_id}}/{{ticket_id}}/ class=btn_image
                     onclick="javascript:confirmationDropTicket($(this));return false;"
@@ -57,7 +57,17 @@
             </div>
         {% endif %}
     {% endif %}
-
+    
+    {% if(manager == user) %}
+            <div class="btn_group">
+                <a onclick="javascript:confirmationDropTicket($(this));return false;"
+                    href=/tickets/delete_ticket/{{group_id}}/{{project_id}}/{{ticket_id}}/ class=invisible_text>Delete</a>
+                <br>
+                <a href=/tickets/delete_ticket/{{group_id}}/{{project_id}}/{{ticket_id}}/ class=btn_image
+                    onclick="javascript:confirmationDropTicket($(this));return false;"
+                    style="background-image: url(/static/Images/bin_icon.png);"></a>
+            </div>
+    {% endif %}
 </body>
 
 <script>

@@ -43,67 +43,54 @@
         </div>
     </div>
 
-    <br>
-    <h3>Active</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Started</th>
-                <th colspan="2"></th>
-            </tr>
-        </thead>
-        {% for ticket in tickets %}
-        <tr>
-            <td>{{ticket[4]}}</td>
-            <td>{{ticket[3]}}</td>
-            {% if not(ticket[1] == None) %}
-            <td>Started</td>
-            {% else %}
-            <td>Not Started</td>
-            {% endif %}
-            <td>
-                <a href="/tickets/view_tickets/{{group_id}}/{{project_id}}/{{ticket[0]}}" class="edit_btn">Expand Ticket</a>
-            </td>
-            {% if(manager == user_id) %}
-            <td>
-                <a onclick="javascript:confirmationDeleteTicket($(this));return false;" href="/tickets/delete_ticket/{{group_id}}/{{project_id}}/{{ticket[0]}}/" class="del_btn">Delete Ticket</a>
-            </td>
-            {% endif %}
-        </tr>
-        {% endfor %}
+    {% if(manager == user_id) %}
+        <div class="btn_group">
+            <div style="display: inline-block;">
+                <a href=/projects/{{group_id}}/delete_project/{{projects_id}} class=invisible_text>Delete</a>
+                <br>
+                <a href=/projects/{{group_id}}/delete_project/{{projects_id}} class=btn_image
+                    style="background-image: url(/static/Images/bin_icon.png);"></a>
+            </div>
+        </div>
+    {% else %}
+        <div class="btn_group">
+            <div style="display: inline-block;">
+                <a href=/projects/{{group_id}}/leave_project/{{projects_id}} class=invisible_text>Leave</a>
+                <br>
+                <a href=/projects/{{group_id}}/leave_project/{{projects_id}} class=btn_image
+                    style="background-image: url(/static/Images/bin_icon.png);"></a>
+            </div>
+        </div>
+    {% endif %}
+
+    <br><br>>
     
-    </table>
+    <h3>Active</h3>
+    {% for ticket in tickets %}
+    <a href="/tickets/view_tickets/{{group_id}}/{{project_id}}/{{ticket[0]}}" class="data_box">
+        <h3>{{ticket[4]}}</h3>
+        <field>
+        {% if not(ticket[1] == None) %}
+            Started
+            {% else %}
+            Not Started
+            {% endif %}
+        </field>
+    </a>
+    {% endfor %}
 
     <br><br>
+
     <h3>Completed</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th colspan="2"></th>
-            </tr>
-        </thead>
-        {% for ticket in completed %}
-        <tr>
-            <td>{{ticket[4]}}</td>
-            <td>{{ticket[3]}}</td>
-            <td>
-                <a href="/tickets/view_tickets/{{group_id}}/{{project_id}}/{{ticket[0]}}" class="edit_btn">Expand Ticket</a>
-            </td>
-            {% if(manager == user_id) %}
-            <td>
-                <a onclick="javascript:confirmationDeleteTicket($(this));return false;"
-                    href="/tickets/delete_ticket/{{group_id}}/{{project_id}}/{{ticket[0]}}/" class="del_btn">Delete
-                    Ticket</a>
-            </td>
-            {% endif %}
-        </tr>
-        {% endfor %}
-    
-    </table>
+
+    {% for ticket in completed %}
+    <a href="/tickets/view_tickets/{{group_id}}/{{project_id}}/{{ticket[0]}}" class="data_box">
+        <h3>{{ticket[4]}}</h3>
+        <field style="color: #eea7fc;">
+            Compelete
+        </field>
+    </a>
+    {% endfor %}
 
 </body>
 

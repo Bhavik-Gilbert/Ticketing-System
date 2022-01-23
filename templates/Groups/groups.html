@@ -24,45 +24,20 @@
     <h2 style = "font-size: 30px;">Groups</h2>
 
     <div class="btn_group">
-        <a href=/groups/new_group class=invisible_text target="_blank">Create New Group</a>
+        <a href=/groups/new_group class=invisible_text target="_blank">New</a>
         <br>
         <a href=/groups/new_group class=btn_image target="_blank"
             style="background-image: url(/static/Images/new_group_icon.png);"></a>
     </div>
 
-    <table>
-	<thead>
-		<tr>
-			<th>Name</th>
-			<th>Description</th>
-			<th>Owner</th>
-            <th colspan="3"></th>
-		</tr>
-	</thead>
+    <br><br>
+    
     {% for i in range(list_length) %}
-    <tr>
-        <td>{{groups[i][1]}}</td>
-        <td>{{groups[i][2]}}</td>
-        <td>{{owners[i]}}</td>
-        <td>
-            <a href="/projects/{{groups[i][0]}}" class="edit_btn">View Group</a>
-        </td>
-        {% if(groups[i][3] == user_id) %}
-        <td>
-            <a href="/groups/invite/{{groups[i][0]}}" class="edit_btn">Invite</a>
-        </td>
-        <td>
-            <a onclick="javascript:confirmationDeleteGroup($(this));return false;" href="/groups/delete/{{groups[i][0]}}" class="del_btn">Delete Group</a>
-        </td>
-        {% else %}
-        <td>
-            <a onclick="javascript:confirmationLeaveGroup($(this));return false;" href="/groups/leave/{{groups[i][0]}}" class="del_btn">Leave Group</a>
-        </td>
-        {% endif %}
-    </tr>
+    <a href="/projects/{{groups[i][0]}}" class="data_box">
+        <h3>{{groups[i][1]}}</h3>
+        <field>Owner : {{owners[i]}}</field>
+    </a>
     {% endfor %}
-
-    </table>
 </body>
 
 <script>

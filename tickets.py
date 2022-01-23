@@ -131,6 +131,11 @@ def view_ticket(number,number2,number3):
     if not(group_check(number, session["id"]) and project_check(number2, session["id"])):
         return redirect(url_for("group.groups"))
     
+    record = (number2,)
+    manager = query("""SELECT Manager FROM projects 
+                       WHERE ProjectID = %s""", record)
+    manager = manager[0][0]
+
     record = (number3,)
     select_ticket = query("""SELECT tickets.TicketName, tickets.TicketDescription, tickets.Completed, tickets.DateCompleted, tickets.UserID FROM tickets 
                             WHERE tickets.ticketID = %s""", record)
@@ -150,7 +155,7 @@ def view_ticket(number,number2,number3):
     started = not select_ticket[0][4] == None
     
     return render_template("Tickets/view_ticket.html", ticket = select_ticket[0], group_id = number, project_id = number2, ticket_id = number3, 
-                            taken_user = taken_user, started = started, taken = taken)
+                            taken_user = taken_user, started = started, taken = taken, user = session["id"], manager = manager)
 
 @tickets.route("/complete/<number>/<number2>/<number3>/", methods=["POST", "GET"])
 def complete_ticket(number,number2,number3):
