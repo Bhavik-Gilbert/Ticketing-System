@@ -1,0 +1,60 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Table.css') }}">
+    <title>Groups</title>
+</head>
+
+{% extends "Sub/mainHeader.html" %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for msg in messages %}
+<br><br>
+<div class="flash_box">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    {{msg}}
+</div>
+{% endfor %}
+{%endif%}
+{% endwith %}
+
+<body>
+    <h2 style="font-size: 30px;">Users</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th colspan="3"></th>
+            </tr>
+        </thead>
+        {% for user in invite_list %}
+        <tr>
+            <td>{{user[1]}}</td>
+            <td>
+                <a onclick="javascript:confirmationInviteGroup($(this));return false;" href="/groups/invite/{{group_id}}/invite/{{user[0]}}" class="edit_btn">Invite</a>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</body>
+
+<div class="btn_group">
+    <a href=/groups//new_group class=invisible_text target="_blank">Create New Group</a>
+    <br>
+    <a href=/groups//new_group class=btn_image target="_blank"
+        style="background-image: url(/static/Images/new_group_icon.png);"></a>
+</div>
+
+<script>
+    function confirmationInviteGroup(anchor) {
+        var conf = confirm('Are you sure want to invite this user to the group?');
+        if (conf)
+            window.location = anchor.attr("href");
+    }
+</script>
+
+{% endblock %}

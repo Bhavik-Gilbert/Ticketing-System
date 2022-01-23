@@ -1,0 +1,67 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Table.css') }}">
+    <title>Group Invitations</title>
+</head>
+
+{% extends "Sub/mainHeader.html" %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+            <br><br>
+            <div class="flash_box">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    {{msg}}
+                </div>
+        {% endfor %}
+    {%endif%}
+{% endwith %}
+
+<body>
+    <h2 style="font-size: 30px;">Invited</h2>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Short Description</th>
+                <th>Owner</th>
+                <th colspan="5"></th>
+            </tr>
+        </thead>
+    
+        {% for group in invite_list %}
+        <tr>
+            <td>{{group[2]}}</td>
+            <td>{{group[3]}}</td>
+            <td>{{group[4]}}</td>
+            <td>
+                <a onclick="javascript:confirmationAcceptGroup($(this));return false;" href="/groups/accept/{{group[0]}}" class="edit_btn">Accept</a>
+            </td>
+            <td>
+                <a onclick="javascript:confirmationDeclineGroup($(this));return false;" href="/groups/decline/{{group[0]}}" class="del_btn">Decline</a>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</body>
+
+<script>
+    function confirmationAcceptGroup(anchor) {
+        var conf = confirm('Are you sure want to join this group?');
+        if (conf)
+            window.location = anchor.attr("href");
+    }
+
+    function confirmationDeclineGroup(anchor) {
+        var conf = confirm('Are you sure want to decline this group?');
+        if (conf)
+            window.location = anchor.attr("href");
+    }
+</script>
+
+{% endblock %}

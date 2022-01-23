@@ -1,0 +1,16 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Header.css') }}">
+</head>
+
+<link href='https://fonts.googleapis.com/css?family=Oswald:300' rel='stylesheet' type='text/css'>
+
+<div class="navbar"></div>
+    <a href="/groups" class="btn">Groups</a>
+    <a href="/groups/invitations" class="btn">Invitations</a>
+    <a href="/tickets/your_tickets" class="btn">Tasks</a>
+</div>
+
+{% block content %} {% endblock %}
+
+{% extends "Sub/mainFooter.html" %}
+

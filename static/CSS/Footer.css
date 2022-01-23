@@ -1,0 +1,41 @@
+* {
+	-webkit-transition-property: all;
+	-webkit-transition-duration: .2s;
+  -moz-transition-timing-function: cubic-bezier(100,50,21,6);
+	-moz-transition-property: all;
+  -moz-transition-timing-function: cubic-bezier(100,50,21,6);
+}
+
+body{
+  background:#1b1b2b;
+  padding-top:20px;
+  text-align:center;
+  font-family: 'Oswald', sans-serif;
+}
+
+.navbar{
+  padding: 20px;;
+}
+
+h1{
+  color:#c0c0c0;
+  font-weight:100;
+}
+
+.logout{
+  color:#999;
+  background:rgba(0, 0, 0, 0.5);
+  padding:10px 20px;
+  font-size:12px;
+  text-decoration:none;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.logout:hover{
+  border:none;
+  background:rgba(0, 0, 0, 0.4);
+  background:#610000;
+  padding:20px 20px;
+  color:#fff;
+}

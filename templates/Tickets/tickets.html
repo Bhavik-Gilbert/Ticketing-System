@@ -1,0 +1,118 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Table.css') }}">
+    <title>Tickets</title>
+</head>
+
+{% extends "Sub/mainHeader.html" %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for msg in messages %}
+<br><br>
+<div class="flash_box">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    {{msg}}
+</div>
+{% endfor %}
+{%endif%}
+{% endwith %}
+
+<body>
+    <h2 style="font-size: 30px;">{{project_name}}</h2>
+    <p>"{{project_description}}"</p>
+
+    <div class="btn_group">
+        <div style="display: inline-block;">
+            <a href=/tickets/new_ticket/{{group_id}}/{{project_id}} class=invisible_text target="_blank">New</a>
+            <br>
+            <a href=/tickets/new_ticket/{{group_id}}/{{project_id}} class=btn_image target="_blank"
+                style="background-image: url(/static/Images/new_project_icon.jpg);"></a>
+            <br>
+        </div>
+    </div>
+
+    <div class="btn_group">
+        <div style="display: inline-block;">
+            <a href=/projects/members/{{group_id}}/{{project_id}} class=invisible_text target="_blank">Members</a>
+            <br>
+            <a href=/projects/members/{{group_id}}/{{project_id}} class=btn_image target="_blank"
+                style="background-image: url(/static/Images/new_group_icon.png);"></a>
+        </div>
+    </div>
+
+    <br>
+    <h3>Active</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Started</th>
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+        {% for ticket in tickets %}
+        <tr>
+            <td>{{ticket[4]}}</td>
+            <td>{{ticket[3]}}</td>
+            {% if not(ticket[1] == None) %}
+            <td>Started</td>
+            {% else %}
+            <td>Not Started</td>
+            {% endif %}
+            <td>
+                <a href="/tickets/view_tickets/{{group_id}}/{{project_id}}/{{ticket[0]}}" class="edit_btn">Expand Ticket</a>
+            </td>
+            {% if(manager == user_id) %}
+            <td>
+                <a onclick="javascript:confirmationDeleteTicket($(this));return false;" href="/tickets/delete_ticket/{{group_id}}/{{project_id}}/{{ticket[0]}}/" class="del_btn">Delete Ticket</a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    
+    </table>
+
+    <br><br>
+    <h3>Completed</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+        {% for ticket in completed %}
+        <tr>
+            <td>{{ticket[4]}}</td>
+            <td>{{ticket[3]}}</td>
+            <td>
+                <a href="/tickets/view_tickets/{{group_id}}/{{project_id}}/{{ticket[0]}}" class="edit_btn">Expand Ticket</a>
+            </td>
+            {% if(manager == user_id) %}
+            <td>
+                <a onclick="javascript:confirmationDeleteTicket($(this));return false;"
+                    href="/tickets/delete_ticket/{{group_id}}/{{project_id}}/{{ticket[0]}}/" class="del_btn">Delete
+                    Ticket</a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    
+    </table>
+
+</body>
+
+<script>
+    function confirmationDeleteTicket(anchor) {
+        var conf = confirm('Are you sure want to delete this ticket?');
+        if (conf)
+            window.location = anchor.attr("href");
+    }
+</script>
+
+{% endblock %}

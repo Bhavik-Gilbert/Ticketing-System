@@ -1,0 +1,62 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Table.css') }}">
+    <title>Group Members</title>
+</head>
+
+{% extends "Sub/mainHeader.html" %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for msg in messages %}
+<br><br>
+<div class="flash_box">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    {{msg}}
+</div>
+{% endfor %}
+{%endif%}
+{% endwith %}
+
+<body>
+    <h2 style="font-size: 30px;">{{group_name}} members</h2>
+    <p>Owner : {{owner_name}}</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+
+        {% for member in members %}
+            {% if member[2] == True %}
+                <tr>
+                    <td>{{member[0]}}</td>
+                    <td>{{member[1]}}</td>
+                    {% if(owner == user_id) %}
+                        <td>
+                            <a onclick="javascript:confirmationRemoveUser($(this));return false;" class="edit_btn"
+                                href="/groups/remove/{{group_id}}/remove/{{member[3]}}"">Remove User</a>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endif %}
+        {% endfor %}
+
+    </table>
+</body>
+
+<script>
+    function confirmationRemoveUser(anchor) {
+        var conf = confirm('Are you sure want to remove this user?');
+        if (conf)
+            window.location = anchor.attr("href");
+    }
+</script>
+
+{% endblock %}

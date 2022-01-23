@@ -1,0 +1,63 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Form.css') }}">
+    <title>Login</title>
+</head>
+
+
+{% extends "Sub/startHeader.html" %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+            <br><br>
+            <div class="flash_box">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    {{msg}}
+            </div>
+        {% endfor %}
+    {%endif%}
+{% endwith %}
+
+<form method="post" action="" align="center">
+    <formTitle>Login</formTitle>
+    <br><br><br>
+
+    {% if(showMessage) %}
+    <div class="message">
+        {% autoescape false %}
+        {{message}}
+        {% endautoescape %}
+    </div>
+    <br>
+    {% endif %}
+
+    <div class="input-group">
+        <input class="form-style" type="text" name="Username" placeholder="Username">
+    </div>
+
+    <div class="input-group">
+        <input class="form-style" type="password" name="Password" placeholder="Password">
+    </div>
+
+    <div class="input-group" align="center">
+        <div class="wrapper">
+            <input type="checkbox" name="captcha" id="captcha" value="True" placeholder="False">
+            <label for="captcha">Captcha</label>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="input-group">
+        <button class="btn" type="submit" name="Submit" style="display: block; margin-left: auto;
+         margin-right: auto; width: 8em">Login</button>
+    </div>
+
+</form>
+{% endblock %}
+</html>
+

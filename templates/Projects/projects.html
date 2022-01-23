@@ -1,0 +1,133 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Table.css') }}">
+    <title>Projects</title>
+</head>
+
+{% extends "Sub/mainHeader.html" %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+            <br><br>
+            <div class="flash_box">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                {{msg}}
+            </div>
+        {% endfor %}
+    {%endif%}
+{% endwith %}
+
+<body>
+    <h2 style="font-size: 30px;">{{group_name}}</h2>
+    <p>"{{group_description}}"</p>
+
+
+    <div class="btn_group">
+        <div style="display: inline-block;">
+            <a href=/projects/{{group_id}}/new_project class=invisible_text target="_blank">New</a>
+            <br>
+            <a href=/projects/{{group_id}}/new_project class=btn_image target="_blank"
+                style="background-image: url(/static/Images/new_project_icon.jpg);"></a>
+            <br>
+        </div>
+    </div>
+    
+    <div class="btn_group">
+        <div style="display: inline-block;">
+            <a href=/groups/members/{{group_id}} class=invisible_text target="_blank">Members</a>
+            <br>
+            <a href=/groups/members/{{group_id}} class=btn_image target="_blank"
+                style="background-image: url(/static/Images/new_group_icon.png);"></a>
+        </div>
+    </div>
+    
+    <div style="display: inline-block;">
+        <div class="btn_group">
+            <a href=/groups/members/{{group_id}} class=invisible_text target="_blank">Invite</a>
+            <br>
+            <a href=/groups/invite/{{group_id}} class=btn_image target="_blank"
+                style="background-image: url(/static/Images/invite_group_icon.png);"></a>
+        </div>
+    </div>
+
+    <br>
+    
+    <table style="float:left; margin-left: 5%; width: 40%;">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Manager</th>
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+        {% for i in range(in_length) %}
+        <tr>
+            <td>{{projects_in[i][0]}}</td>
+            <td>{{projects_in[i][1]}}</td>
+            <td>{{projects_in[i][2]}}</td>
+            <td>
+                <a href="/tickets/{{group_id}}/{{projects_in[i][5]}}" class="edit_btn">View Project</a>
+            </td>
+            {% if (managers_in[i] == user) %}
+                <td>
+                    <a onclick="javascript:confirmationDeleteProject($(this));return false;" href="/projects/{{group_id}}/delete_project/{{projects_in[i][5]}}" class="del_btn">Delete Project</a>
+                </td>
+            {% else %}
+                <td>
+                    <a onclick="javascript:confirmationLeaveProject($(this));return false;" href="/projects/{{group_id}}/leave_project/{{projects_in[i][5]}}" class="del_btn">Leave Project</a>
+                </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+
+    <table style="float:right; margin-right: 5%; width: 40%;">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Manager</th>
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+        {% for project in projects_out %}
+        <tr>
+            <td>{{project[0]}}</td>
+            <td>{{project[1]}}</td>
+            <td>{{project[2]}}</td>
+            <td>
+                <a onclick="javascript:confirmationJoinProject($(this));return false;" href="/projects/{{project[0]}}" class="del_btn">Join Project/nf</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+    <br><br><br>
+</body>
+
+<script>
+    function confirmationDeleteProject(anchor) {
+        var conf = confirm('Are you sure want to delete this project?');
+        if (conf)
+            window.location = anchor.attr("href");
+    }
+
+    function confirmationLeaveProject(anchor) {
+        var conf = confirm('Are you sure want to leave this project?');
+        if (conf)
+            window.location = anchor.attr("href");
+    }
+    
+    function confirmationJoinProject(anchor) {
+            var conf = confirm('Are you sure want to join this project?');
+            if (conf)
+                window.location = anchor.attr("href");
+        }
+</script>
+
+{% endblock %}

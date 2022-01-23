@@ -1,0 +1,70 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Table.css') }}">
+    <title>User Tickets</title>
+</head>
+
+{% extends "Sub/mainHeader.html" %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for msg in messages %}
+<br><br>
+<div class="flash_box">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    {{msg}}
+</div>
+{% endfor %}
+{%endif%}
+{% endwith %}
+
+<body>
+    <h2 style="font-size: 30px;">{{ticket[0]}}</h2>
+    {% if(ticket[2]) %}
+        <h6>Completed by {{taken_user}}<br>On {{ticket[3]}}</h6>
+    {% elif(taken) %}
+        <h6>Started by {{taken_user}}</h6>
+    {% endif %}
+    <p>"{{ticket[1]}}"</p>
+
+    {% if not(ticket[2]) %}
+        {% if(started) %}
+            <div class="btn_group">
+                <a onclick="javascript:confirmationCompleteTicket($(this));return false;" href=/tickets/complete/{{group_id}}/{{project_id}}/{{ticket_id}}/ class=invisible_text>Complete Ticket</a>
+                <br>
+                <a href=/tickets/complete/{{group_id}}/{{project_id}}/{{ticket_id}}/ class=btn_image
+                    onclick="javascript:confirmationCompleteTicket($(this));return false;" style="background-image: url(/static/Images/tick_icon.jpg);"></a>
+            </div>
+
+            <div class="btn_group">
+                <a onclick="javascript:confirmationDropTicket($(this));return false;"
+                    href=/tickets/drop/{{group_id}}/{{project_id}}/{{ticket_id}}/ class=invisible_text>Drop Ticket</a>
+                <br>
+                <a href=/tickets/drop/{{group_id}}/{{project_id}}/{{ticket_id}}/ class=btn_image
+                    onclick="javascript:confirmationDropTicket($(this));return false;"
+                    style="background-image: url(/static/Images/bin_icon.png);"></a>
+            </div>
+        {% else %}
+            <div class="btn_group">
+                <a onclick="javascript:confirmationDropTicket($(this));return false;"
+                    href=/tickets/start/{{group_id}}/{{project_id}}/{{ticket_id}}/ class=invisible_text>Start Ticket</a>
+                <br>
+                <a href=/tickets/start/{{group_id}}/{{project_id}}/{{ticket_id}}/ class=btn_image
+                    onclick="javascript:confirmationDropTicket($(this));return false;"
+                    style="background-image: url(/static/Images/tick_icon.jpg);"></a>
+            </div>
+        {% endif %}
+    {% endif %}
+
+</body>
+
+<script>
+    function confirmationCompleteTicket(anchor) {
+        var conf = confirm('Are you sure want to complete this ticket?');
+        if (conf)
+            window.location = anchor.attr("href");
+    }
+</script>
+{% endblock %}

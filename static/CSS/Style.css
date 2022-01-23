@@ -1,0 +1,77 @@
+/*page background design*/
+body {
+    background-color: #1f2029;
+}
+
+h1{color:#fff;}
+h2{color:#fff;}
+h3{color:#fff;}
+h4{color:#fff;}
+h5{color:#fff;}
+h6{color:#fff;}
+p{color:#fff; font-size: 12px;}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #23088c;
+  border-radius: 80px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #2a02cc;
+}
+
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.btn_group{display: inline-block}
+.btn_image{padding: 10px; height:30px;width:30px; border-radius: 40px; border: 2px solid #000; color: #000; display: inline-block}
+.btn_group:hover .btn_image{border: 10px solid #fff;}
+.invisible_text{opacity: 0; color:#fff;}
+.btn_group:hover .invisible_text{opacity: 1; padding: 20px;}
+
+/* The alert message box */
+.flash_box {
+  padding: 20px;
+  background-color: #22277a; /* Red */
+  color: white;
+  margin-bottom: 15px;
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: black;
+}

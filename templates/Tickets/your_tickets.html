@@ -1,0 +1,99 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Table.css') }}">
+    <title>User Tickets</title>
+</head>
+
+{% extends "Sub/mainHeader.html" %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+            <br><br>
+            <div class="flash_box">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                {{msg}}
+            </div>
+        {% endfor %}
+    {%endif%}
+{% endwith %}
+<body>
+    <h2 style="font-size: 30px;">Your Tickets</h2>
+
+    <br>
+    <h3>Active</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Group</th>
+                <th>Project</th>
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+        {% for ticket in tickets %}
+        <tr>
+            <td>{{ticket[0]}}</td>
+            <td>{{ticket[1]}}</td>'
+            <td>{{ticket[2]}}</td>
+            <td>{{ticket[3]}}</td>'
+            <td>
+                <a href="/tickets/view_tickets/{{ticket[4]}}/{{ticket[5]}}/{{ticket[6]}}" class="edit_btn">Expand Ticket</a>
+            </td>
+            {% if(manager == user_id) %}
+            <td>
+                <a onclick="javascript:confirmationDeleteTicket($(this));return false;" href="/tickets/delete_ticket/{{ticket[4]}}/{{ticket[5]}}/{{ticket[6]}}/" class="del_btn">Delete Ticket</a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    
+    </table>
+
+    <br><br>
+    <h3>Completed</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Group</th>
+                <th>Project</th>
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+        {% for ticket in completed %}
+        <tr>
+            <td>{{ticket[0]}}</td>
+            <td>{{ticket[1]}}</td>'
+            <td>{{ticket[2]}}</td>
+            <td>{{ticket[3]}}</td>'
+            <td>
+                <a href="/tickets/view_tickets/{{ticket[4]}}/{{ticket[5]}}/{{ticket[6]}}" class="edit_btn">Expand Ticket</a>
+            </td>
+            {% if(manager == user_id) %}
+            <td>
+                <a onclick="javascript:confirmationDeleteTicket($(this));return false;"
+                    href="/tickets/delete_ticket/{{ticket[4]}}/{{ticket[5]}}/{{ticket[6]}}/" class="del_btn">Delete
+                    Ticket</a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    
+    </table>
+
+</body>
+
+<script>
+    function confirmationDeleteTicket(anchor) {
+        var conf = confirm('Are you sure want to delete this ticket?');
+        if (conf)
+            window.location = anchor.attr("href");
+    }
+</script>
+
+{% endblock %}

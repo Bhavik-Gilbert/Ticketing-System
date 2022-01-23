@@ -1,0 +1,83 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Table.css') }}">
+    <title>Groups</title>
+</head>
+
+{% extends "Sub/mainHeader.html" %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+        <br><br>
+        <div class="flash_box">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{msg}}
+        </div>
+        {% endfor %}
+    {%endif%}
+{% endwith %}
+
+<body>
+    <h2 style = "font-size: 30px;">Groups</h2>
+
+    <div class="btn_group">
+        <a href=/groups/new_group class=invisible_text target="_blank">Create New Group</a>
+        <br>
+        <a href=/groups/new_group class=btn_image target="_blank"
+            style="background-image: url(/static/Images/new_group_icon.png);"></a>
+    </div>
+
+    <table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Owner</th>
+            <th colspan="3"></th>
+		</tr>
+	</thead>
+    {% for i in range(list_length) %}
+    <tr>
+        <td>{{groups[i][1]}}</td>
+        <td>{{groups[i][2]}}</td>
+        <td>{{owners[i]}}</td>
+        <td>
+            <a href="/projects/{{groups[i][0]}}" class="edit_btn">View Group</a>
+        </td>
+        {% if(groups[i][3] == user_id) %}
+        <td>
+            <a href="/groups/invite/{{groups[i][0]}}" class="edit_btn">Invite</a>
+        </td>
+        <td>
+            <a onclick="javascript:confirmationDeleteGroup($(this));return false;" href="/groups/delete/{{groups[i][0]}}" class="del_btn">Delete Group</a>
+        </td>
+        {% else %}
+        <td>
+            <a onclick="javascript:confirmationLeaveGroup($(this));return false;" href="/groups/leave/{{groups[i][0]}}" class="del_btn">Leave Group</a>
+        </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+
+    </table>
+</body>
+
+<script>
+    function confirmationDeleteGroup(anchor) {
+        var conf = confirm('Are you sure want to delete this group?');
+        if (conf)
+            window.location = anchor.attr("href");
+    }
+
+    function confirmationLeaveGroup(anchor) {
+        var conf = confirm('Are you sure want to leave this group?');
+        if (conf)
+            window.location = anchor.attr("href");
+    }
+</script>
+
+{% endblock %}
+
