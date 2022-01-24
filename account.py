@@ -123,12 +123,14 @@ def delete_account():
     query("""UPDATE tickets
              SET UserID=%s
              WHERE UserID=%s""", record)
+
+    record = (session["id"],)
     query("""DELETE FROM projectlist
              WHERE UserID=%s""", record)
     query("""DELETE FROM memberlist
              WHERE UserID=%s""", record)
     query("""DELETE FROM user
              WHERE UserID=%s""", record)
-    flash("Account deleted successfully")
 
-    return redirect(url_for("start.login"))
+    flash("Account deleted successfully")
+    return redirect(url_for("main.logout"))
