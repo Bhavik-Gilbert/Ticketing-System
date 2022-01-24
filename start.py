@@ -27,7 +27,6 @@ def login():
         try:
             username_check = not empty(select_login)
             password_check = check_hash(password, hashed_password=select_login[0][2])
-            
         except:
             username_check = password_check = False
 
@@ -59,6 +58,7 @@ def signup():
         email = request.form["Email"]
         username = request.form["Username"]
         password = request.form["Password"]
+        confirm_password = request.form["Confirm_Password"]
 
 
         record = (username,)
@@ -76,12 +76,14 @@ def signup():
 
         if not(captcha):
             message += "Invalid captcha<br>"
-        if(empty(firstname) or empty(surname) or empty(email) or empty(username) or empty(password)):
+        if(empty(firstname) or empty(surname) or empty(email) or empty(username) or empty(password) or empty(confirm_password)):
             message += "Please fill in all fields<br>"
         if(name.isnumeric()):
            message += "Please enter a valid name<br>" 
         if not(valid_email(email)):
              message += "Please enter a valid email<br>" 
+        if not(confirm_password == password):
+            message += "The passwords do not match<br>"
         if not valid_password(password):
             message += "Password is not strong enough<br>"
         if(double_username):

@@ -96,20 +96,49 @@ def group_remove(number, user):
     if(logged_out()):
         return redirect(url_for("start.login"))
 
-    accept = "User Removed"
+    accept = ""
     deny = "Only the owner of a group can remove someone"
     error = "Failed to remove user"
-    is_owner = owner_check(session["id"], accept, deny, error)  
-    if (is_owner):
-        pass
-    else:
+    is_owner = owner_check(session["id"], accept, deny, error) 
+
+    accept ="User Removed"
+    deny = "You cannot remove the owner from a group"
+    user_owner =  owner_check(int(user), deny, accept, error)
+   
+    if (not is_owner) | (user_owner):
         return redirect(url_for("group.groups"))
+
 
     record = (number, user)
     query("""DELETE FROM memberlist
              WHERE GroupID = %s AND UserID = %s""", record)
 
     return redirect(url_for("group.groups"))
+
+@group.route("/change/<number>/owner/<user>", methods=["GET"])
+def group_change_ownership(number, user):
+    if(logged_out()):
+        return redirect(url_for("start.login"))
+
+    accept = ""
+    deny = "Only the owner of a group can transfer ownership"
+    error = "Failed to transfer ownership"
+    is_owner = owner_check(session["id"], accept, deny, error) 
+
+    accept ="Ownership transferred"
+    deny = "You cannot transfer ownership to the current owner"
+    user_owner =  owner_check(int(user), deny, accept, error)
+   
+    if (not is_owner) | (user_owner):
+        return redirect("/projects/"+number)
+
+
+    record = (int(user), number)
+    query("""UPDATE groups
+            SET Owner=%s
+            WHERE GroupID=%s""", record)
+
+    return redirect("/projects/"+number)
 
 @group.route("/leave/<number>/", methods=["GET"])
 def leave_group(number):

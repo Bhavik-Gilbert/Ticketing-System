@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
--- Host: sql208.epizy.com
--- Generation Time: Jan 13, 2022 at 02:17 PM
--- Server version: 5.6.48-88.0
--- PHP Version: 7.2.22
+-- Host: 127.0.0.1
+-- Generation Time: Jan 24, 2022 at 12:11 AM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.4.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -44,7 +43,7 @@ CREATE TABLE `groups` (
 CREATE TABLE `memberlist` (
   `GroupID` int(8) NOT NULL,
   `UserID` int(8) NOT NULL,
-  `Accepted` tinyint(1) NOT NULL DEFAULT '0'
+  `Accepted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -80,10 +79,12 @@ CREATE TABLE `projects` (
 
 CREATE TABLE `tickets` (
   `TicketID` int(8) NOT NULL,
-  `UserID` int(8) NOT NULL,
+  `UserID` int(8) DEFAULT NULL,
   `ProjectID` int(8) NOT NULL,
-  `TicketDescription` varchar(256) NOT NULL,
-  `TicketName` varchar(16) NOT NULL
+  `TicketDescription` varchar(1024) NOT NULL,
+  `TicketName` varchar(16) NOT NULL,
+  `Completed` tinyint(1) NOT NULL DEFAULT 0,
+  `DateCompleted` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -155,19 +156,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `GroupID` int(8) NOT NULL AUTO_INCREMENT;
+  MODIFY `GroupID` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `ProjectID` int(8) NOT NULL AUTO_INCREMENT;
+  MODIFY `ProjectID` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `TicketID` int(8) NOT NULL AUTO_INCREMENT;
+  MODIFY `TicketID` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `UserID` int(8) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -183,8 +190,8 @@ ALTER TABLE `groups`
 -- Constraints for table `memberlist`
 --
 ALTER TABLE `memberlist`
-  ADD CONSTRAINT `memberlist_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`),
-  ADD CONSTRAINT `memberlist_ibfk_2` FOREIGN KEY (`GroupID`) REFERENCES `groups` (`GroupID`);
+  ADD CONSTRAINT `memberlist_ibfk_2` FOREIGN KEY (`GroupID`) REFERENCES `groups` (`GroupID`),
+  ADD CONSTRAINT `memberlist_ibfk_3` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`);
 
 --
 -- Constraints for table `projectlist`
@@ -204,10 +211,8 @@ ALTER TABLE `projects`
 -- Constraints for table `tickets`
 --
 ALTER TABLE `tickets`
-  ADD CONSTRAINT `tickets_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`),
-  ADD CONSTRAINT `tickets_ibfk_2` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`),
-  ADD CONSTRAINT `tickets_ibfk_3` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`),
-  ADD CONSTRAINT `tickets_ibfk_4` FOREIGN KEY (`ProjectID`) REFERENCES `projects` (`ProjectID`);
+  ADD CONSTRAINT `tickets_ibfk_4` FOREIGN KEY (`ProjectID`) REFERENCES `projects` (`ProjectID`),
+  ADD CONSTRAINT `tickets_ibfk_5` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -40,19 +40,5 @@
     {% endfor %}
 </body>
 
-<script>
-    function confirmationDeleteGroup(anchor) {
-        var conf = confirm('Are you sure want to delete this group?');
-        if (conf)
-            window.location = anchor.attr("href");
-    }
-
-    function confirmationLeaveGroup(anchor) {
-        var conf = confirm('Are you sure want to leave this group?');
-        if (conf)
-            window.location = anchor.attr("href");
-    }
-</script>
-
 {% endblock %}
 

@@ -25,13 +25,6 @@
     <p>Owner : {{owner_name}}</p>
 
     <table>
-        <thead>
-            <tr>
-                <th>Username</th>
-                <th>Email</th>
-                <th colspan="2"></th>
-            </tr>
-        </thead>
 
         {% for member in members %}
             {% if member[2] == True %}
@@ -41,6 +34,10 @@
                     {% if(owner == user_id) %}
                         <td>
                             <a onclick="javascript:confirmationRemoveUser($(this));return false;" class="edit_btn"
+                                href="/groups/change/{{group_id}}/owner/{{member[3]}}"">Make Owner</a>
+                                                </td>
+                        <td>
+                            <a onclick="javascript:confirmationRemoveUser($(this));return false;" class="del_btn"
                                 href="/groups/remove/{{group_id}}/remove/{{member[3]}}"">Remove User</a>
                         </td>
                     {% endif %}

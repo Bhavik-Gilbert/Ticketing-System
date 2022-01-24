@@ -25,13 +25,7 @@
     <p>Manager : {{manager_name}}</p>
 
     <table>
-        <thead>
-            <tr>
-                <th>Username</th>
-                <th>Email</th>
-                <th colspan="2"></th>
-            </tr>
-        </thead>
+       
 
         {% for member in members %}
         <tr>
@@ -39,7 +33,12 @@
             <td>{{member[1]}}</td>
             {% if(manager == user_id) %}
             <td>
-                <a onclick="javascript:confirmationRemoveUser($(this));return false;" class="edit_btn"
+                <a onclick="javascript:confirmationChangeOwner($(this));return false;" class="edit_btn"
+                    href="/projects/{{group_id}}/make_manager/{{project_id}}/{{member[2]}}">Make Manager</a>
+            </td>
+
+            <td>
+                <a onclick="javascript:confirmationRemoveUser($(this));return false;" class="del_btn"
                     href="/projects/{{group_id}}/remove_user/{{project_id}}/{{member[2]}}">Remove User</a>
             </td>
             {% endif %}

@@ -1,79 +1,88 @@
+<html>
+
 <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Form.css') }}">
-    <title>Signup</title>
+    <title>Edit Account Details</title>
+</head>
 
-{% extends "Sub/startHeader.html" %}
+
+{% extends "Sub/mainHeader.html" %}
 
 {% block content %}
 
 {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        {% for msg in messages %}
-            <br><br>
-            <div class="flash_box">
-                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                {{msg}}
-            </div>
-        {% endfor %}
-    {%endif%}
+{% if messages %}
+{% for msg in messages %}
+<br><br>
+<div class="flash_box">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    {{msg}}
+</div>
+{% endfor %}
+{%endif%}
 {% endwith %}
 
 <body>
 
     <form method="post" action="" align="center">
-        <formTitle>Signup</formTitle>
+        <formTitle>Edit Details</formTitle>
         <br><br><br>
-        
+    
         {% if(showMessage) %}
-        <div class = "message">
-        {% autoescape false %}
-        {{message}}
-        {% endautoescape %}
+        <div class="message">
+            {% autoescape false %}
+            {{message}}
+            {% endautoescape %}
         </div>
         <br>
         {% endif %}
-
+    
         <div class="input-group">
-            <input class="form-style" type="text" name="Firstname" placeholder="Firstname">
+            <input class="form-style" type="text" name="Firstname" placeholder="{{Firstname}}" value="{{Firstname}}">
         </div>
-
+    
         <div class="input-group">
-            <input class="form-style" type="text" name="Surname" placeholder="Surname">
+            <input class="form-style" type="text" name="Surname" placeholder="{{Surname}}" value="{{Surname}}">
+        </div>
+    
+        <div class="input-group">
+            <input class="form-style" type="text" name="Email" placeholder="{{Email}}" value="{{Email}}">
+        </div>
+    
+        <div align="center">
+            <p style="font-size:20px">Username : {{Username}}</p>
         </div>
         
         <div class="input-group">
-            <input class="form-style" type="text" name="Email" placeholder="Email">
-        </div>
-
-        <div class="input-group">
-            <input class="form-style" type="text" name="Username" placeholder="Username">
+            <input class="form-style" type="password" name="Current_Password" placeholder="Current Password">
         </div>
 
         <div class="input-group">
             <input class="form-style" type="password" name="Password" placeholder="Password">
         </div>
-
+    
         <div class="input-group">
             <input class="form-style" type="password" name="Confirm_Password" placeholder="Confirm Password">
         </div>
-
+    
         <div class="input-group" align="center">
             <div class="wrapper">
                 <input type="checkbox" name="captcha" id="captcha" value="True" placeholder="False">
                 <label for="captcha">Captcha</label>
             </div>
         </div>
-
+    
         <br>
-
+    
         <div class="input-group">
             <button class="btn" type="submit" name="Submit" style="display: block; margin-left: auto;
-    margin-right: auto; width: 8em">Signup</button>
+        margin-right: auto; width: 8em">Edit</button>
         </div>
-
+    
     </form>
 
 </body>
-
 {% endblock %}
+
+</html>

@@ -77,5 +77,16 @@ tr:hover {
     background-image: radial-gradient(#003b59, #000);
     padding: 20px;
     border: 3px double #000;
-
+}
+.unlink .data_box:hover{
+  background-image: radial-gradient(red, #000);  
+}
+.large .data_box{
+    width: max-content;
+    height: max-content;
+    padding:30px;
+}
+.large .data_box:hover{
+    padding: 50px;
+    border: 10px groove #000;
 }

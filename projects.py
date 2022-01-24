@@ -139,12 +139,34 @@ def remove_user(number,number2, user):
     select_manager = query("""SELECT Manager FROM projects
                             WHERE projects.ProjectID = %s""", record)
 
-    if owner_check(select_manager[0][0],"User removed successfully","Only the manager can remove a user","Error removing user"):
+    is_owner = owner_check(select_manager[0][0],"","Only the manager can remove a user","Error removing user")
+    user_owner = owner_check(int(user),"You cannot remove the manager of a project","User removed successfully","Error removing user")
+    if (is_owner) & (not user_owner):
         record = (number2, user)
         query(""" DELETE FROM projectlist
                 WHERE ProjectID = %s AND UserID = %s""", record)
 
     return redirect("/projects/" + number)
+
+@project.route("/<number>/make_manager/<number2>/<user>", methods=["POST", "GET"])
+def change_manager(number,number2, user):
+    if(logged_out()):
+        return redirect(url_for("start.login"))
+    
+    record = (number2,)
+    select_manager = query("""SELECT Manager FROM projects
+                            WHERE projects.ProjectID = %s""", record)
+
+    is_owner = owner_check(select_manager[0][0],"","Only the manager can transfer ownership","Error transferring ownership")
+    user_owner = owner_check(int(user),"You cannot transfer manager to the current manager","Manager changed successfully","Error transferring ownership")
+    if (is_owner) & (not user_owner):
+        record = (int(user), number2)
+        query("""UPDATE projects
+                SET Manager=%s
+                WHERE ProjectID=%s""", record)
+
+    return redirect("/tickets/" + number + "/" + number2)
+
 
 @project.route("/<number>/leave_project/<number2>", methods=["POST", "GET"])
 def leave_project(number,number2):

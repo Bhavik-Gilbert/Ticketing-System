@@ -2,6 +2,7 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/Table.css') }}">
     <title>Account Management</title>
 </head>
 
@@ -21,6 +22,72 @@
 {% endfor %}
 {%endif%}
 {% endwith %}
+
+<body>
+    
+    <h2 style="font-size: 30px;">User Account</h2>
+    <br>
+    <div class="btn_group">
+        <a href=/account/delete_account class=invisible_text>Delete Account</a>
+        <br>
+        <a href=/account/delete_account class=btn_image style="background-image: url(/static/Images/bin_icon.png);"></a>
+    </div>
+    <br><br><br>
+    <div class="large">
+        <a class=data_box href="/account/edit_account/">
+            <h3>{{user[2]}}</h3>
+            <label>{{user[1]}}</label> <br>
+            <label>{{user[0]}}</label>
+        </a>
+    </div>
+
+    <br><br>
+    <h3>Owned Groups ({{group_num}})</h3>
+    {% for group in groups %}
+    <div class="unlink">
+        <div class=data_box>
+            <h3>{{group[0]}}</h3>
+            <label>"{{group[1]}}"</label>
+        </div>
+    </div>
+    {% endfor %}
+
+    <br><br>
+    <h3>Projects Managed ({{project_num}})</h3>
+    {% for project in projects %}
+    <div class="unlink">
+        <div class=data_box>
+            <h3>{{project[0]}}</h3>
+            <label>"{{project[1]}}"</label>
+        </div>
+    </div>
+    {% endfor %}
+
+    <br><br>
+    <h3>Tickets Started ({{tstart_num}})</h3>
+    {% for ticket in tickets_started %}
+    <div class="unlink">
+        <div class=data_box>
+            <h3>{{ticket[0]}}</h3>
+            <label>"{{ticket[1]}}"</label>
+        </div>
+    </div>
+    {% endfor %}
+
+    <br><br>
+    <h3>Tickets Complete ({{tcomplete_num}})</h3>
+    {% for ticket in tickets_completed %}
+    <div class="unlink">
+        <div class=data_box>
+            <h3>{{ticket[0]}}</h3>
+            <label>"{{ticket[1]}}"</label> <br>
+            <label>"{{ticket[2]}}"</label>
+        </div>
+    </div>
+    {% endfor %}
+
+<br><br><br>
+</body>
 
 {% endblock %}
 
