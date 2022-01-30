@@ -1,7 +1,4 @@
-from pprint import isrecursive
 from flask import Blueprint, redirect, url_for, render_template, request, session, flash
-from mysqlx import Session
-from numpy import record
 from functions import query, logged_out, empty, valid_email, password_check as valid_password, logged_in, get_hashed_password as hash, check_password as check_hash
 from connection import query
 
