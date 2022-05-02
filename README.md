@@ -1,4 +1,4 @@
-# Ticketing System - [Live Site](http://bhavikgilbert.pythonanywhere.com/)
+# Ticketing System
 
 ### [Live Site](http://bhavikgilbert.pythonanywhere.com/) - http://bhavikgilbert.pythonanywhere.com/
   
