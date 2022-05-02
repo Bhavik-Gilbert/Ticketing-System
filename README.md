@@ -1,5 +1,6 @@
 # [Ticketing-System](http://bhavikgilbert.pythonanywhere.com/)
-
+  
+###Badges
 >![GitHub last commit](https://img.shields.io/github/last-commit/Bhavik-Gilbert/Ticketing-System)
 >![Lines of code](https://img.shields.io/tokei/lines/github/Bhavik-Gilbert/Ticketing-System)
 >![GitHub repo size](https://img.shields.io/github/repo-size/Bhavik-Gilbert/Ticketing-System)
