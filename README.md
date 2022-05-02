@@ -6,5 +6,5 @@ This repo is the codebase for a mockup task ticketing system. What this means is
 This system helps teams to determine what work is avaiable alongside who completed what jobs, thereby making traceback and understanding for managers and colleagues much easier since they can find who did what and contact them about any questions.
 
 ## Hosting
-The website is hosted on pythonanywhere.com and is currently available for anyone to use
+The website is hosted on [pythonanywhere.com](pythonanywhere.com) and is currently available for anyone to use
 
