@@ -10,6 +10,10 @@ from connection import query
 
 @tickets.route("/your_tickets/", methods=["POST", "GET"])
 def tasks():
+    """
+    Displays the tickets of the user
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
     
@@ -31,6 +35,10 @@ def tasks():
 
 @tickets.route("/<number>/<number2>/", methods=["POST", "GET"])
 def ticket(number,number2):
+    """
+    Displays the ticket of the project
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
 
@@ -54,6 +62,10 @@ def ticket(number,number2):
 
 @tickets.route("/delete_ticket/<number>/<number2>/<number3>/", methods=["POST", "GET"])
 def delete_ticket(number,number2,number3):
+    """
+    Deletes the ticket
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
 
@@ -70,6 +82,10 @@ def delete_ticket(number,number2,number3):
 
 @tickets.route("/new_ticket/<number>/<number2>/", methods=["POST", "GET"])
 def new_ticket(number,number2):
+    """
+    Creates a new ticket
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
 
@@ -125,6 +141,10 @@ def new_ticket(number,number2):
 
 @tickets.route("/view_tickets/<number>/<number2>/<number3>", methods=["POST", "GET"])
 def view_ticket(number,number2,number3):
+    """
+    Displays the ticket details
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
     
@@ -159,6 +179,10 @@ def view_ticket(number,number2,number3):
 
 @tickets.route("/complete/<number>/<number2>/<number3>/", methods=["POST", "GET"])
 def complete_ticket(number,number2,number3):
+    """
+    Marks the ticket as complete
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
 
@@ -185,6 +209,10 @@ def complete_ticket(number,number2,number3):
 
 @tickets.route("/drop/<number>/<number2>/<number3>/", methods=["POST", "GET"])
 def drop_ticket(number,number2,number3):
+    """
+    Allows users to drop a ticket
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
 
@@ -211,6 +239,10 @@ def drop_ticket(number,number2,number3):
 
 @tickets.route("/start/<number>/<number2>/<number3>/", methods=["POST", "GET"])
 def start_ticket(number,number2,number3):
+    """
+    Allows users to start a ticket
+    """
+    
     if(logged_out()):
         return redirect(url_for("start.login"))
 

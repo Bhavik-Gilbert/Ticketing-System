@@ -10,6 +10,10 @@ from connection import query
 
 @group.route("/", methods=["POST", "GET"])
 def groups():
+    """
+    Lists all groups the user is a member of
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
     
@@ -36,6 +40,11 @@ def groups():
 
 @group.route("/invite/<number>", methods=["POST", "GET"])
 def invite_group(number):
+    """
+    Allows owners to invite users into a group
+    Provides search functionality to search through users
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
 
@@ -73,6 +82,10 @@ def invite_group(number):
 
 @group.route("/invite/<number>/invite/<user>", methods=["GET"])
 def group_invite(number, user):
+    """
+    Allows owners to send invites to users
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
 
@@ -93,6 +106,10 @@ def group_invite(number, user):
 
 @group.route("/remove/<number>/remove/<user>", methods=["GET"])
 def group_remove(number, user):
+    """
+    Allows owners to remove members from a group
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
 
@@ -117,6 +134,10 @@ def group_remove(number, user):
 
 @group.route("/change/<number>/owner/<user>", methods=["GET"])
 def group_change_ownership(number, user):
+    """
+    Allows owners to transfer ownership of a group
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
 
@@ -142,6 +163,10 @@ def group_change_ownership(number, user):
 
 @group.route("/leave/<number>/", methods=["GET"])
 def leave_group(number):
+    """
+    Allows users to leave a group
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))  
     
@@ -162,6 +187,10 @@ def leave_group(number):
 
 @group.route("/delete/<number>", methods=["GET"])
 def delete_group(number):
+    """
+    Allows owners to delete a group
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))  
     
@@ -205,6 +234,10 @@ def delete_group(number):
 
 @group.route("/invitations/", methods=["GET"])
 def invitations():
+    """
+    Allows users to view their group invitations
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
     
@@ -225,6 +258,10 @@ def invitations():
 
 @group.route("/accept/<number>", methods=["GET"])
 def accept(number):
+    """
+    Allows users to accept group invitations
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
 
@@ -237,7 +274,11 @@ def accept(number):
     return redirect(url_for("group.groups"))
 
 group.route("/decline/<number>", methods=["GET"])
-def accept(number):
+def decline(number):
+    """
+    Allows users to decline group invitations
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
 
@@ -251,6 +292,10 @@ def accept(number):
 
 @group.route("/new_group/", methods=["POST", "GET"])
 def new_groups():
+    """
+    Allows users to create new groups
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
     
@@ -315,6 +360,10 @@ def new_groups():
 
 @group.route("/members/<number>", methods=["POST", "GET"])
 def group_members(number):
+    """
+    Allows members to view a list of all group members
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
     

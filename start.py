@@ -8,6 +8,10 @@ start = Blueprint("start", __name__, static_folder="static", template_folder="te
 
 @start.route("/", methods=["POST", "GET"])
 def login():
+    """
+    Logs in the user
+    """
+
     if(logged_in()):
         return redirect(url_for("group.groups"))
 
@@ -47,6 +51,10 @@ def login():
 
 @start.route("/signup/", methods=["POST", "GET"])
 def signup():
+    """
+    Allows users to sign up
+    """
+    
     if(logged_in()):
         return redirect(url_for("group.groups"))
 

@@ -5,6 +5,11 @@ from flask import session, flash, request
 from connection import query
 
 def valid_email(email):
+    """
+    Checks if the email is valid
+    Returns True if valid, False if not
+    """
+
     regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
 
     if(re.fullmatch(regex, email)):
@@ -12,6 +17,11 @@ def valid_email(email):
     return False
 
 def password_check(password: str):
+    """
+    Validates the password
+    Returns True if valid, False if not
+    """
+
     try:
         # calculating the length
         length_error = len(password) < 8
@@ -36,27 +46,46 @@ def password_check(password: str):
     return password_ok
 
 def get_hashed_password(plain_text_password):
-    # Hash a password for the first time
-    #   (Using bcrypt, the salt is saved into the hash itself)
-    #password can be up to 72 chars
+    """
+    Returns a hashed password
+    Salt stored in the hash itself using bcrypt
+    """
+
     return bcrypt.hashpw(plain_text_password.encode('utf8'), bcrypt.gensalt())
 
 def check_password(plain_text_password, hashed_password):
-    # Check hashed password. Using bcrypt, the salt is saved into the hash itself
+    """
+    Checks if the password is correct against the stored hash
+    """
+
     return bcrypt.checkpw(plain_text_password.encode('utf8'), hashed_password.encode('utf8'))
 
 def empty(text):
+    """
+    Checks if the value is empty
+    """
+
     if(len(text)>0):
         return False
     return True
 
 def logged_out():
+    """
+    Checks if user is logged out
+    False if logged in, True if logged out 
+    """
+
     if not(session.permanent):
         flash("Log in to access rest of site")
         return True
     return False
 
 def logged_in():
+    """
+    Checks if user is logged in
+    True if logged in, False if logged out 
+    """
+
     if (session.permanent):
         flash("Already logged in")
         return True
@@ -64,6 +93,10 @@ def logged_in():
     return False
 
 def group_check(number, id):
+    """
+    Checks if the user is in the group
+    """
+
     record = ( number, id)
     user_access = query("""SELECT Accepted FROM memberlist
                             WHERE GroupID = %s AND UserID = %s""", record)
@@ -78,6 +111,10 @@ def group_check(number, id):
     return True
 
 def project_check(number, id):
+    """
+    Checks if the user is in the project
+    """
+
     record = ( number, id)
     user_access = query("""SELECT * FROM projectlist
                             WHERE ProjectID = %s AND UserID = %s""", record)
@@ -93,6 +130,10 @@ def project_check(number, id):
     return True
 
 def owner_check(owner_id, accept:str, decline:str, error:str):
+    """
+    Checks if the user is the owner of the project
+    """
+    
     try:
         owner = owner_id    
         if(owner == session["id"]):

@@ -2,6 +2,10 @@ import mysql.connector
 from mysql.connector import Error
 
 def create_connection(host_name="localhost", user_name="root", user_password="", db_name="taskmanager"):
+    """
+    Creates a connection to the database
+    """
+
     connection = None
     try:
         connection = mysql.connector.connect(
@@ -17,6 +21,10 @@ def create_connection(host_name="localhost", user_name="root", user_password="",
     return connection
 
 def execute_query(connection, query, record=""):
+    """
+    Executes a query
+    """
+
     cursor = connection.cursor(buffered=True)
     try:
         if(record != ""):

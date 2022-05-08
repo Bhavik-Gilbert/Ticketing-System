@@ -7,6 +7,10 @@ from functions import logged_out
 
 @main.route("/logout/")
 def logout():
+    """
+    Logs out the user
+    """
+    
     session.clear()
     session.permanent = False
     flash("Logout successful")

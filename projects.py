@@ -8,6 +8,10 @@ from connection import query
 
 @project.route("/<number>", methods=["POST", "GET"])
 def projects(number):
+    """
+    Displays the projects of the group
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
     
@@ -41,6 +45,10 @@ def projects(number):
 
 @project.route("/<number>/new_project", methods=["POST", "GET"])
 def new_project(number):
+    """
+    Allows members to create a new project
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
     
@@ -109,6 +117,10 @@ def new_project(number):
 
 @project.route("/<number>/delete_project/<number2>", methods=["POST", "GET"])
 def delete_project(number,number2):
+    """
+    Allows the manager to delete a project
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
     
@@ -132,6 +144,10 @@ def delete_project(number,number2):
 
 @project.route("/<number>/remove_user/<number2>/<user>", methods=["POST", "GET"])
 def remove_user(number,number2, user):
+    """
+    Allows the manager to remove a user from a project
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
     
@@ -150,6 +166,10 @@ def remove_user(number,number2, user):
 
 @project.route("/<number>/make_manager/<number2>/<user>", methods=["POST", "GET"])
 def change_manager(number,number2, user):
+    """
+    Allows the manager to transfer management of a project
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
     
@@ -170,6 +190,10 @@ def change_manager(number,number2, user):
 
 @project.route("/<number>/leave_project/<number2>", methods=["POST", "GET"])
 def leave_project(number,number2):
+    """
+    Allows the user to leave a project
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
     
@@ -187,6 +211,10 @@ def leave_project(number,number2):
 
 @project.route("/<number>/join_project/<number2>", methods=["POST", "GET"])
 def join_project(number,number2):
+    """
+    Allows the user to join a project
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
     
@@ -207,6 +235,10 @@ def join_project(number,number2):
 
 @project.route("/members/<number>/<number2>", methods=["POST", "GET"])
 def project_members(number,number2):
+    """
+    Allows members to view the members of a project
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
     

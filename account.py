@@ -6,6 +6,11 @@ user = Blueprint("user", __name__, static_folder="static", template_folder="temp
 
 @user.route("/", methods=["POST", "GET"])
 def account():
+    """
+    Account page
+    Lets users view their account information alongside the groups,projects and tickets they control
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
     
@@ -41,6 +46,11 @@ def account():
 
 @user.route("/edit_account/", methods=["POST", "GET"])
 def edit_account():
+    """
+    Edit account page
+    Lets users edit their account information
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
     
@@ -102,6 +112,11 @@ def edit_account():
     
 @user.route("/delete_account/", methods=["POST", "GET"])
 def delete_account():
+    """
+    Delete account page
+    Deletes the user's account and logs them out
+    """
+
     if(logged_out()):
         return redirect(url_for("start.login"))
     
@@ -116,12 +131,10 @@ def delete_account():
         flash("Transfer all duties before attempting to delete an account")
         return redirect(url_for("user.account"))
     
-    record = (None, session["id"])
+    record = (session["id"],)
     query("""UPDATE tickets
              SET UserID=%s
              WHERE UserID=%s""", record)
-
-    record = (session["id"],)
     query("""DELETE FROM projectlist
              WHERE UserID=%s""", record)
     query("""DELETE FROM memberlist
