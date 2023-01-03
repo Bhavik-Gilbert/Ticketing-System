@@ -1,4 +1,3 @@
-from ssl import get_protocol_name
 from flask import Blueprint, redirect, url_for, render_template, request, session, flash
 
 group = Blueprint("group", __name__, static_folder="static", template_folder="template")
